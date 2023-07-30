@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socials</title>
+  <style>
+    body {
+      background-color: #0f1923;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #sidebar {
+      background-color: #2d0386;
+      height: 100vh;
+      width: 1vw;
+      position: fixed;
+    }
+
+    #content {
+      display: none; /* Hide the content initially */
+      height: 100vh;
+      width: 99vw;
+      position: relative;
+      overflow: auto; /* Add this line */
+    }
+
+    #banner {
+      width: 99vw;
+      height: 40vh;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: -1;
+    }
+
+    #overlay {
+      position: absolute;
+      top: 0;
+      right: 1%;
+      height: 40vh;
+      width: 97vw;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+   /* #avatarBox {
+      background-color: rgba(31, 31, 31, 0.5);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 15vh; /* Adjusted size */
+      height: 15vh; /* Adjusted size */
+      border-radius: 100%;
+      padding: 5px;
+      transition: all 0.3s ease-in-out;
+    } */ 
+
+    #avatarBox:hover {
+      width: 25vh;
+      height: 25vh;
+      opacity: 0.9;
+    }
+
+    #profileContent {
+      position: absolute;
+      top: 60%;
+      transform: translateY(-50%);
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.6em;
+      margin-top: 0;
+    }
+
+    .social-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .column {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .icon {
+      height: 60px;
+      width: 60px;
+      margin: 10px;
+      padding: 10px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .icon:hover {
+      opacity: 0.9;
+      transform: scale(1.1);
+      border-radius: 5px;
+      background-color: #14d4e1;
+    }
+
+    
+    #passwordContainer {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    #passwordForm {
+      display: inline-block;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+    }
+
+    #passwordInput {
+      margin-bottom: 10px;
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+
+    #passwordSubmit {
+      padding: 5px 10px;
+      background-color: #2d0386;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    #loadingScreen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0f1923;
+      z-index: 9999;
+    }
+    
+    #loadingText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: #fff;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const icons = document.querySelectorAll(".icon");
+
+      function handleIconMouseOver(e) {
+        // Increase size of the hovered icon
+        this.style.transform = "scale(1.2)";
+
+        // Make nearby icons disappear/fade
+        icons.forEach(icon => {
+          if (icon !== this) {
+            icon.style.opacity = "0.1";
+          }
+        });
+      }
+
+      function handleIconMouseOut(e) {
+        // Restore size of the icon
+        this.style.transform = "scale(1)";
+
+        // Restore opacity of all icons
+        icons.forEach(icon => {
+          icon.style.opacity = "1";
+        });
+      }
+
+      // Attach event listeners to icons
+      icons.forEach(icon => {
+        icon.addEventListener("mouseover", handleIconMouseOver);
+        icon.addEventListener("mouseout", handleIconMouseOut);
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const avatarBox = document.getElementById("avatarBox");
+      const profileContent = document.getElementById("profileContent");
+
+      function handleAvatarBoxClick() {
+        profileContent.style.display = "none";
+      }
+
+      function handleAvatarBoxMouseOut() {
+        profileContent.style.display = "block";
+      }
+
+      avatarBox.addEventListener("mouseover", handleAvatarBoxClick);
+      avatarBox.addEventListener("mouseout", handleAvatarBoxMouseOut);
+    });
+
+    function handlePasswordSubmit() {
+      var password = document.getElementById("passwordInput").value;
+
+      // Enter your desired password here
+      var correctPassword = "chaitanya";
+
+      if (password === correctPassword) {
+        // If the entered password is correct, display the loading screen
+        document.getElementById("passwordContainer").style.display = "none";
+        document.getElementById("loadingScreen").style.display = "block";
+        setTimeout(function() {
+          // Simulate a loading time
+          document.getElementById("loadingScreen").style.display = "none";
+          document.getElementById("content").style.display = "block"; // Show the content
+        }, 3000); // Adjust the loading time as needed
+      } else {
+        // If the entered password is incorrect, display an error message
+        alert("Incorrect password. Please try again.");
+      }
+    }
+    
+    var passwordAttempts = 0; // Initialize the password attempts counter
+    
+    function handlePasswordSubmit() {
+      var password = document.getElementById("passwordInput").value;
+    
+      // Enter your desired password here
+      var correctPassword = "chaitanya";
+      var hint = "Type my name"; // Hint message
+    
+      if (password === correctPassword) {
+        // If the entered password is correct, display the content
+        document.getElementById("passwordContainer").style.display = "none";
+        document.getElementById("content").style.display = "block";
+      } else {
+        passwordAttempts++; // Increment the password attempts counter
+    
+        if (passwordAttempts === 2) {
+          // After two failed attempts, display the hint
+          alert("Hint: " + hint);
+        } else if (passwordAttempts >= 3) {
+          // After three or more failed attempts, display an error message
+          alert(" Error: Type  the name");
+        }
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Add the password container and form -->
+  <div id="passwordContainer">
+    <form id="passwordForm" onsubmit="event.preventDefault(); handlePasswordSubmit()">
+      <input id="passwordInput" type="password" placeholder="Enter password" required>
+      <br>
+      <button id="passwordSubmit" type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div id="sidebar"></div>
+  <div id="content">
+    <img id="banner" src="background.jpg">
+    <div id="overlay"></div>
+    <a id="avatarLink" href="#">
+      <div id="avatarBox" class="pointer">
+        <img src="chai.jpg" alt="">
+      </div>
+    </a>
+    <div id="profileContent">
+      <h1>SOCIALS</h1>
+      <div class="social-icons">
+        <div class="row">
+          <div class="column">
+            <a href="http://api.whatsapp.com/send?phone=7303535581" target="_self">
+              <img src="what.jpeg" class="icon" alt="Whatsapp">
+            </a>
+          </div>
+          <div class="column">
+            <a href="https://www.instagram.com/chaitanya_ajmani4329/" target="_self">
+              <img src="insta.jpeg" class="icon" alt="Instagram">
+            </a>
+          </div>
+          <div class="column">
+            <a href="https://www.facebook.com/profile.php?id=100093976996042" target="_self">
+              <img src="face.png" class="icon" alt="Facebook">
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column">
+            <a href="https://www.snapchat.com/add/chaitanyaajmani" target="_self">
+              <img src="snap2.png" class="icon" alt="Snapchat">
+            </a>
+          </div>
+          <div class="column">
+            <a href="https://youtube.com/@ChaitanyaAjmani" target="_self">
+              <img src="yt.jpeg" class="icon" alt="Youtube">
+            </a>
+          </div>
+          <div class="column">
+            <a href="https://www.linkedin.com/in/chaitanya-ajmani-a1b01927a/" target="_self">
+              <img src="link.png" class="icon" alt="LinkedIn">
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column">
+            <a href="" target="_self">
+              <!-- Icon removed -->
+            </a>
+          </div>
+          <div class="column">
+            <a href="https://web.telegram.org/a/#1768358142" target="_self">
+              <img src="telegram.jpg" class="icon" alt="Telegram">
+            </a>
+          </div>
+          <div class="column">
+            <!-- Icon removed -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="loadingScreen">
+    <div id="loadingText">Loading...</div>
+  </div>
+</body>
+
+</html>

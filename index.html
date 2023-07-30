@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <style>
+    body {
+      background-color: #0f1923;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #sidebar {
+      background-color: #2d0386;
+      height: 100vh;
+      width: 1vw;
+      position: fixed;
+    }
+
+    #content {
+      height: 100vh;
+      width: 99vw;
+      position: relative;
+      overflow: auto;
+    }
+
+    #banner {
+      width: 99vw;
+      height: 40vh;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: -1;
+    }
+
+    #overlay {
+      position: absolute;
+      top: 0;
+      right: 1%;
+      height: 40vh;
+      width: 97vw;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    #avatarBox:hover {
+      width: 30vh;
+      height: 30vh;
+      opacity: 0.9;
+    }
+
+    #avatarBox img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 100%;
+    }
+
+    #profileContent {
+      position: absolute;
+      top: 65%;
+      transform: translateY(-50%);
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.6em;
+      margin-top: 0;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 30px 20px;
+      padding: 15px 30px;
+      border: 3px solid #ffffff;
+      border-radius: 10px;
+      transition: all 0.5s ease-in-out;
+      text-decoration: none;
+      font-size: 1.2em;
+      overflow: auto;
+    }
+
+    .button:hover {
+      opacity: 0.9;
+      transform: scale(1.1);
+      background-color: #11cd43;
+      animation: rotateButton 12s forwards; /* Added animation */
+    }
+
+    /* Add red color on hover for the "Others" button */
+    #othersBtn:hover {
+      background-color: #ba2f2f;
+    }
+
+    /* Animation for buttons on hover */
+    @keyframes rotateButton {
+      0% {
+        transform: rotate(0deg);
+      }
+      50% {
+        transform: rotate(360deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="sidebar"></div>
+  <div id="content">
+    <img id="banner" src="background.jpg">
+    <div id="overlay"></div>
+    <div id="profileContent">
+      <div class="row">
+        <div class="column">
+          <a class="button" href="p.html" id="socialsBtn">Socials</a>
+          <a class="button" href="p2.html" id="gamesBtn">Games</a>
+          <a class="button" href="#" id="othersBtn">Others</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
